@@ -1,0 +1,7 @@
+main: 'mx.kenzie.blocklike.BlockLike'
+name: 'BlockLike'
+version: '1.0.0'
+authors: [ ]
+softdepend: [ 'Skript' ]
+description: "Minecraft as a level-scaling 'rogue-like' game."
+api-version: '1.20'
