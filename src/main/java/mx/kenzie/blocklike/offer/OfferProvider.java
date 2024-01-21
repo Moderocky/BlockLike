@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public interface OfferProvider extends Keyed {
 
     static OfferProvider of(Plugin plugin, String name, OfferProvider.Simple simple) {
-        return new FunctionalProvider(name, new NamespacedKey(plugin, name.replace(' ', '_').toLowerCase()), simple);
+        return new FunctionalProvider(name, plugin, new NamespacedKey(plugin, name.replace(' ', '_').toLowerCase()), simple);
     }
 
     default Offer create(int level, Rarity rarity) {
@@ -36,25 +36,24 @@ public interface OfferProvider extends Keyed {
         return new NamespacedKey("blocklike", this.name().replace(' ', '_').toLowerCase());
     }
 
+    Plugin plugin();
+
     @FunctionalInterface
-    interface Simple extends OfferProvider {
+    interface Simple {
+
+        void apply(LivingEntity entity, Offer offer);
 
         default void remove(LivingEntity entity, Offer offer) {
-        }
-
-        default @Override
-        String name() {
-            return "Unknown";
         }
 
     }
 
 }
 
-record FunctionalProvider(String name, NamespacedKey key, OfferProvider.Simple simple) implements OfferProvider {
+record FunctionalProvider(String name, Plugin plugin, NamespacedKey getKey, OfferProvider.Simple simple) implements OfferProvider {
 
-    public FunctionalProvider(String name, Simple simple) {
-        this(name, new NamespacedKey("blocklike", name.replace(' ', '_').toLowerCase()), simple);
+    public FunctionalProvider(String name, Plugin plugin, Simple simple) {
+        this(name, plugin, new NamespacedKey("blocklike", name.replace(' ', '_').toLowerCase()), simple);
     }
 
     @Override
@@ -65,11 +64,6 @@ record FunctionalProvider(String name, NamespacedKey key, OfferProvider.Simple s
     @Override
     public void remove(LivingEntity entity, Offer offer) {
         this.simple.remove(entity, offer);
-    }
-
-    @Override
-    public @NotNull NamespacedKey getKey() {
-        return key;
     }
 
 }
