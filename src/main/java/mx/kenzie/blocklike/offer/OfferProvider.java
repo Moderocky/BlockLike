@@ -23,6 +23,14 @@ public interface OfferProvider extends Keyed {
 
     String name();
 
+    default boolean allowedAt(Rarity rarity) {
+        return true;
+    }
+
+    default boolean compatibleWith(OfferProvider provider) {
+        return true;
+    }
+
     default @Override
     @NotNull NamespacedKey getKey() {
         return new NamespacedKey("blocklike", this.name().replace(' ', '_').toLowerCase());
