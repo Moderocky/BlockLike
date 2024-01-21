@@ -37,6 +37,12 @@
             <version>1.20.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>mx.kenzie</groupId>
+            <artifactId>centurion-minecraft</artifactId>
+            <version>1.0.4</version>
+            <scope>compile</scope>
+        </dependency>
 <!--        <dependency>-->
 <!--            <groupId>com.github.SkriptLang</groupId>-->
 <!--            <artifactId>Skript</artifactId>-->
