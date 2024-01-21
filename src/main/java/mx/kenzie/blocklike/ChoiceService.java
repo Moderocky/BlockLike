@@ -1,5 +1,6 @@
 package mx.kenzie.blocklike;
 
+import mx.kenzie.blocklike.offer.Offer;
 import mx.kenzie.blocklike.offer.OfferProvider;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.LivingEntity;
@@ -29,6 +30,17 @@ public interface ChoiceService {
     int maxKnownLevel(LivingEntity entity);
 
     void offer(LivingEntity entity);
+
+    Collection<Offer> getOffers(LivingEntity entity);
+
+    void addOffer(LivingEntity entity, Offer offer);
+
+    void setOffers(LivingEntity entity, Collection<Offer> offers);
+
+    /**
+     * Something has changed in the set of offer-providers that means every bonus must be recalculated.
+     */
+    void recalculateAll();
 
     default Collection<PersistentDataContainer> getStorage(LivingEntity entity) {
         final PersistentDataContainer container = entity.getPersistentDataContainer();
